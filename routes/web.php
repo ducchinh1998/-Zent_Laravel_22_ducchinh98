@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    \Illuminate\Support\Facades\Log::error('Test Error');
     return view('welcome');
 });
+
+
 
 Route::prefix('backend')->group(function(){
     Route::group(['prefix' => 'categories'],function(){
