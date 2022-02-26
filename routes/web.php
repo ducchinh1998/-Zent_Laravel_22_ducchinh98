@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     \Illuminate\Support\Facades\Log::error('Test Error');
+    \Illuminate\Support\Facades\Log::info('Test Info 2');
     return view('welcome');
 });
 
