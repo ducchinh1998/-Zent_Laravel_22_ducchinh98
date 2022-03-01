@@ -21,15 +21,56 @@ Route::get('/', function () {
 
 
 
+
 Route::prefix('backend')->group(function(){
+
+    Route::get('/dashboard',function(){
+        return view('backend.dashboard');
+    })->name('backend.dashboard.index');
+    
+    Route::group(['prefix' => 'users'],function(){
+        Route::get('/index',function(){
+            return view('backend.users.index');
+        });
+
+        Route::get('/create',function(){
+            return view('backend.users.create');
+        });
+
+        Route::get('/edit',function(){
+            return view('backend.users.edit');
+        });
+
+    });
+
+    Route::group(['prefix' => 'posts'],function(){
+
+        Route::get('/index',function(){
+            return view('backend.posts.index');
+        });
+
+        Route::get('/create',function(){
+            return view('backend.posts.create');
+        });
+
+        Route::get('/edit',function(){
+            return view('backend.posts.edit');
+        });
+       
+    });
+    
+
+
+
     Route::group(['prefix' => 'categories'],function(){
         Route::get('/index',function(){
-            return view('BT.categories.dashboard');
+            return view('backend.categories.dashboard');
         })->name('backend.categories.index');
+
     
     
         Route::get('/create/{id}',function($id){
-            return view('BT.categories.create', [ 'id'=> 1 ]);
+            return view('backend.categories.create', [ 'id'=> 1 ]);
         })->name('backend.create.category');
     
         Route::post('/store/{id}',function($id){
@@ -37,7 +78,7 @@ Route::prefix('backend')->group(function(){
         })->name('backend.store.category');
     
         Route::get('/edit/{id}',function($id){
-            return view('BT.categories.edit', [ 'id'=> 1 ]);
+            return view('backend.categories.edit', [ 'id'=> 1 ]);
         })->name('backend.edit.category');
     
         Route::post('/update/{id}',function($id){
@@ -45,7 +86,7 @@ Route::prefix('backend')->group(function(){
         })->name('backend.update.category');
     
         Route::get('/show/{id}',function($id){
-            return view('BT.categories.show', [ 'id'=> 1 ]);
+            return view('backend.categories.show', [ 'id'=> 1 ]);
         })->name('backend.show.category');
     
         Route::delete('/delete/{id}',function($id){
@@ -57,11 +98,11 @@ Route::prefix('backend')->group(function(){
     // Quản lý Blog
     Route::group(['prefix' => 'blogs'],function(){
         Route::get('/index',function(){
-            return view('BT.blogs.dashboard');
+            return view('backend.blogs.dashboard');
         })->name('backend.blogs.index');
 
         Route::get('/create/{id}',function($id){
-            return view('BT.blogs.create', [ 'id'=> 1 ]);
+            return view('backend.blogs.create', [ 'id'=> 1 ]);
         })->name('backend.create.blog');
 
         Route::post('/store/{id}',function($id){
@@ -69,7 +110,7 @@ Route::prefix('backend')->group(function(){
         })->name('backend.store.blog');
 
         Route::get('/edit/{id}',function($id){
-            return view('BT.blogs.edit', [ 'id'=> 1 ]);
+            return view('backend.blogs.edit', [ 'id'=> 1 ]);
         })->name('backend.edit.blog');
 
         Route::post('/update/{id}',function($id){
@@ -77,7 +118,7 @@ Route::prefix('backend')->group(function(){
         })->name('backend.update.blog');
 
         Route::get('/show/{id}',function($id){
-            return view('BT.blogs.show', [ 'id'=> 1 ]);
+            return view('backend.blogs.show', [ 'id'=> 1 ]);
         })->name('backend.show.blog');
 
         Route::delete('/delete/{id}',function($id){
