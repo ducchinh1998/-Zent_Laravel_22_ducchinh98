@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,42 +23,51 @@ Route::get('/', function () {
 
 
 
-Route::prefix('backend')->group(function(){
+
+
+Route::prefix('backend')
+->name('backend.')
+->namespace('Backend')
+->group(function(){
+    Route::get('dashboard','DashboardController@index');
 
     Route::get('/dashboard',function(){
         return view('backend.dashboard');
     })->name('backend.dashboard.index');
-    
-    Route::group(['prefix' => 'users'],function(){
-        Route::get('/index',function(){
-            return view('backend.users.index');
-        });
 
-        Route::get('/create',function(){
-            return view('backend.users.create');
-        });
+     Route::Resource('users', UsersController::class);
+    // Route::group(['prefix' => 'users'],function(){
+    //     Route::get('/index',function(){
+    //         return view('backend.users.index');
+    //     });
 
-        Route::get('/edit',function(){
-            return view('backend.users.edit');
-        });
+    //     Route::get('/create',function(){
+    //         return view('backend.users.create');
+    //     });
 
-    });
+    //     Route::get('/edit',function(){
+    //         return view('backend.users.edit');
+    //     });
 
-    Route::group(['prefix' => 'posts'],function(){
+    // });
 
-        Route::get('/index',function(){
-            return view('backend.posts.index');
-        });
+    Route::Resource('posts', PostsController::class);
+    // Route::group(['prefix' => 'posts'],function(){
 
-        Route::get('/create',function(){
-            return view('backend.posts.create');
-        });
+        
+    //     Route::get('/index',function(){
+    //         return view('backend.posts.index');
+    //     });
 
-        Route::get('/edit',function(){
-            return view('backend.posts.edit');
-        });
+    //     Route::get('/create',function(){
+    //         return view('backend.posts.create');
+    //     });
+
+    //     Route::get('/edit',function(){
+    //         return view('backend.posts.edit');
+    //     });
        
-    });
+    // });
     
 
 
