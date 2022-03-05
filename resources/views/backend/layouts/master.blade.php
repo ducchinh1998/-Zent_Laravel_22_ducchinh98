@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LARAVEL 22 | Dashboard</title>
+  <title> @yield('title')| myweb.dev.com</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -25,6 +25,7 @@
   <link rel="stylesheet" href="/backend/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="/backend/plugins/summernote/summernote-bs4.min.css">
+  @yield('css')
   <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

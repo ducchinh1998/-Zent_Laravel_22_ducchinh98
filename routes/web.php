@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use \App\Http\Controllers\DashboardController;
 
 /*
@@ -35,39 +36,39 @@ Route::prefix('backend')
         return view('backend.dashboard');
     })->name('backend.dashboard.index');
 
-     Route::Resource('users', UsersController::class);
-    // Route::group(['prefix' => 'users'],function(){
-    //     Route::get('/index',function(){
-    //         return view('backend.users.index');
-    //     });
+    //  Route::Resource('users', UsersController::class);
+    Route::group(['prefix' => 'users'],function(){
+        Route::get('/index',function(){
+            return view('backend.users.index');
+        });
 
-    //     Route::get('/create',function(){
-    //         return view('backend.users.create');
-    //     });
+        Route::get('/create',function(){
+            return view('backend.users.create');
+        });
 
-    //     Route::get('/edit',function(){
-    //         return view('backend.users.edit');
-    //     });
+        Route::get('/edit',function(){
+            return view('backend.users.edit');
+        });
 
-    // });
+    });
 
-    Route::Resource('posts', PostsController::class);
-    // Route::group(['prefix' => 'posts'],function(){
+    // Route::Resource('posts', PostsController::class);
+    Route::group(['prefix' => 'posts'],function(){
 
         
-    //     Route::get('/index',function(){
-    //         return view('backend.posts.index');
-    //     });
+        Route::get('/index',function(){
+            return view('backend.posts.index');
+        });
 
-    //     Route::get('/create',function(){
-    //         return view('backend.posts.create');
-    //     });
+        Route::get('/create',function(){
+            return view('backend.posts.create');
+        });
 
-    //     Route::get('/edit',function(){
-    //         return view('backend.posts.edit');
-    //     });
+        Route::get('/edit',function(){
+            return view('backend.posts.edit');
+        });
        
-    // });
+    });
     
 
 

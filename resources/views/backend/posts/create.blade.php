@@ -1,4 +1,16 @@
+
 @extends('backend.layouts.master')
+@section('css')
+<style>
+h1 {
+  color:brown;
+
+}
+</style>
+@endsection
+@section('title')
+Tạo mới bài viết
+@endsection
 @section('content-header')
 <div class="container-fluid">
         <div class="row mb-2">
