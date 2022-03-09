@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Admin1',
                 'avatar' => 'nen1.png',
-                'address' => 'dong nai1',
+                'address' => 'Hà Nội',
                 'email' => 'admin1@gmail.com',
                 'phone' => '03363228745',
                 'password' => bcrypt('123456'),
@@ -37,7 +37,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Admin2',
                 'avatar' => 'nen2.png',
-                'address' => 'dong nai2',
+                'address' => 'Hưng Yên',
                 'email' => 'admin2@gmail.com',
                 'phone' => '03331228745',
                 'password' => bcrypt('123456'),
@@ -55,7 +55,7 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Admin4',
                 'avatar' => 'nen4.png',
-                'address' => 'dong nai4',
+                'address' => 'Bắc Ninh',
                 'email' => 'admin4@gmail.com',
                 'phone' => '03332238745',
                 'password' => bcrypt('123456'),

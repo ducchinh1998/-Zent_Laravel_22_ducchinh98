@@ -1,57 +1,97 @@
 @extends('backend.layouts.master')
-@section('content-header')
-<div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
+@section ('title')
+  Danh sách Blog
 @endsection
-@section('content')
-<div class="row">
-      <div class="card-body table-responsive p-0">
+@section ('css')
+
+@endsection
+
+@section ('content-header')
+  <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0">Danh sách Blog</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item active">Danh sách Blog</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+@endsection
+
+@section ('content')
+  <div class="container-fluid">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Responsive Hover Table</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
                 <table class="table table-hover text-nowrap">
-                    <button class="btn btn-primary">Tạo bài viết</button>
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Tên bài viết</th>
+                    <th>ID</th>
+                      <th>Tiêu đề</th>
+                      <th>Ảnh</th>
                       <th>Danh mục</th>
-                      <th>Người tạo</th>
-                      <th>Ngày tạo</th>
-                      <th>Hành động</th>
+                      <th>Tác giả</th>
+                      <th>Trạng thái</th>
+                      <th>Lượt xem</th>
+                      <th>Thời gian tạo</th>
+                      <th>Hoạt động</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>183</td>
-                      <td>Iphone 13 Pro</td>
-                      <td>Điện thoại</td>
-                      <td>Đức Chính</td>
-                      <td>28/02/2022</td>
-                      <td class="project-actions text-left">
-                          <a class="btn btn-info btn-sm" href="#">
-                              <i class="fas fa-pencil-alt">
-                              </i>
-                              Edit
-                          </a>
-                          <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash">
-                              </i>
-                              Delete
-                          </a>
-                      </td>
+                  @foreach($posts as $post)
+                  <tr>
+                        <td>{{ $post->id }}</td>
+                        <td> <a href="">{{ $post->title }}</a> </td>
+                        <td>
+                            <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;">
+                        </td>
+                        <td>{{ $post->category_id }}</td>
+                        <td> {{ $post->user_create_id }} </td>
+                        <td> {{ $post->status }} </td>
+                        <td></td>
+                        <td>{{ $post->created_at }}</td>
+                        <td>
+                            <a href="{{ route('backend.posts.show', $post->id) }}" class="btn btn-danger">Show</a>
+                            <a href="{{ route('backend.posts.edit', $post->id) }}" class="btn btn-success">Chỉnh sửa</a>
+                            <form method="POST" action="{{ route('backend.posts.destroy', $post->id) }}">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                              </button>
+                            </form>
+                        </td>
                     </tr>
+                    @endforeach;
                   </tbody>
-</table>
-                   
-    </div>
-    </div>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
 @endsection

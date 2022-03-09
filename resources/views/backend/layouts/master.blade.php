@@ -48,7 +48,7 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         @yield('content-header')
-      
+
     </div>
     <!-- /.content-header -->
 
@@ -103,5 +103,6 @@
 <script src="/backend/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/backend/dist/js/pages/dashboard.js"></script>
+@yield('script')
 </body>
 </html>

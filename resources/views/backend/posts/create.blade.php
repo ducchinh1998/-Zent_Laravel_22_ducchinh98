@@ -7,6 +7,7 @@ h1 {
 
 }
 </style>
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 @endsection
 @section('title')
 Tạo mới bài viết
@@ -15,12 +16,12 @@ Tạo mới bài viết
 <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Tạo bài viết</h1>
+            <h1 class="m-0">Tạo mới bài viết</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Tạo bài viết</li>
+              <li class="breadcrumb-item active">Tạo mới bài viết</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

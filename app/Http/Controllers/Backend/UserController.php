@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.users.index');
+        $users = DB::table('users')->get();
+        return view('backend.users.index', ['users' => $users]);
     }
 
     /**
@@ -24,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.users.create');
     }
 
     /**
@@ -35,7 +38,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('backend.users.index');
     }
 
     /**
@@ -46,7 +49,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = DB::table('users')->find($id);
+        return view('backend.users.show', ['user' => $user]);
     }
 
     /**
@@ -57,7 +61,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('backend.users.edit');
+        $user = DB::table('users')->find($id);
+        return view('backend.users.edit', ['user' => $user]);
     }
 
     /**
@@ -69,7 +75,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = request();
+        DB::table('users')->updateOrInsert([
+            'name' => $data['name'],
+            'avatar' => $data['avatar'],
+            'email' => $data['email'],
+            'status' => $data['status'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'password' => $data['password'],
+            // 'updated_at' => now()
+        ]);
+        return redirect()->route('backend.users.index');
     }
 
     /**
@@ -80,6 +97,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('users')->where('id', $id)->delete();
+        return redirect()->route('backend.users.index');
     }
 }

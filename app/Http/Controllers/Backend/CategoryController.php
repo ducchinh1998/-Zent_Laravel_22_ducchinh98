@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return view('backend.dashboard');
+       return view('backend.categories.index');
+        $categories = DB::table('categories')->get();
+        return view('backend.categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('backend.categories.create');
     }
 
     /**
@@ -35,7 +38,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request();
+        DB::table('categories')->insert([
+            'name' => $data['name'],
+           'created_at' => now(),
+           'updated_at' => now()
+        ]);
+        return redirect()->route('backend.categories.index');
     }
 
     /**
@@ -57,7 +66,10 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('backend.categories.edit');
+        $category = DB::table('categories')->find($id);
+
+        return view('backend.categories.edit', ['category' => $category]);
     }
 
     /**
@@ -69,7 +81,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = request();
+        DB::table('categories')->where('id', $id)->update([
+            'name' => $data['name'],
+            'updated_at' => now()
+        ]);
+        return redirect()->route('backend.categories.index');
     }
 
     /**
@@ -80,6 +97,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('posts')->where('id', $id)->dekete();
+        return redirect()->route('backend.posts.index');
     }
 }
