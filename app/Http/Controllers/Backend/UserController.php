@@ -15,7 +15,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('backend.users.index');
         $users = DB::table('users')->get();
         return view('backend.users.index', ['users' => $users]);
     }
@@ -61,7 +60,6 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.users.edit');
         $user = DB::table('users')->find($id);
         return view('backend.users.edit', ['user' => $user]);
     }

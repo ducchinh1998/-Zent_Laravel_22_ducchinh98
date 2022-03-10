@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('backend.layouts.master')
 @section ('title')
 Chỉnh sửa Users
 @endsection
@@ -11,12 +11,12 @@ Chỉnh sửa Users
   <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Chỉnh sửa Post</h1>
+              <h1 class="m-0">Chỉnh sửa bài viết</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Chỉnh sửa Users</li>
+                <li class="breadcrumb-item"><a href="#">Danh sách</a></li>
+                <li class="breadcrumb-item active">Chỉnh sửa bài viết</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -24,7 +24,7 @@ Chỉnh sửa Users
 @endsection
 @section ('content')
 <div class="container">
-<form action="{{ route('admin.posts.update', $post->id) }}" method="POST" role="form" enctype="multipart/form-data">
+<form action="{{ route('backend.posts.update', $post->id) }}" method="POST" role="form" enctype="multipart/form-data">
     @csrf
     <input type="hidden" name="_method" value="put">
         <div class="form-group">
@@ -60,10 +60,10 @@ Chỉnh sửa Users
         </div> -->
         <div class="form-group">
             <label for="">Nội dung</label>
-            <textarea name="content" class="form-control" id="contentMovie" cols="40" rows="10" value="{{ $post->content }}"></textarea>
+            <textarea name="content" class="form-control" id="editor1" cols="40" rows="10" value="{{ $post->content }}"></textarea>
         </div>
         <div>
-          <a href="{{ route('admin.users.index') }}" class="btn btn-primary">Hủy</a>
+          <a href="{{ route('backend.users.index') }}" class="btn btn-danger">Hủy</a>
           <button style="margin-left:85%" type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>

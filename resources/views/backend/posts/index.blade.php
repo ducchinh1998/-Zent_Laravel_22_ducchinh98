@@ -1,6 +1,6 @@
 @extends('backend.layouts.master')
 @section ('title')
-  Danh sách Blog
+  Danh sách bài viết
 @endsection
 @section ('css')
 
@@ -10,12 +10,12 @@
   <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Danh sách Blog</h1>
+              <h1 class="m-0">Danh sách bài viết</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Danh sách Blog</li>
+                <li class="breadcrumb-item active">Danh sách bài viết</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -29,7 +29,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">Danh sách</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -48,7 +48,7 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                    <th>ID</th>
+                    <th>STT</th>
                       <th>Tiêu đề</th>
                       <th>Ảnh</th>
                       <th>Danh mục</th>
@@ -56,25 +56,27 @@
                       <th>Trạng thái</th>
                       <th>Lượt xem</th>
                       <th>Thời gian tạo</th>
+                      <th>Ngày cập nhật</th>
                       <th>Hoạt động</th>
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach($posts as $post)
+                  @foreach($posts as $key=>$post)
                   <tr>
-                        <td>{{ $post->id }}</td>
+                        <td>{{ $key+1 }}</td>
                         <td> <a href="">{{ $post->title }}</a> </td>
                         <td>
-                            <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;">
+                            {{-- <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;"> --}}
                         </td>
                         <td>{{ $post->category_id }}</td>
-                        <td> {{ $post->user_create_id }} </td>
-                        <td> {{ $post->status }} </td>
+                        <td> {{ $post->user_created_id }} </td>
                         <td></td>
-                        <td>{{ $post->created_at }}</td>
-                        <td>
-                            <a href="{{ route('backend.posts.show', $post->id) }}" class="btn btn-danger">Show</a>
-                            <a href="{{ route('backend.posts.edit', $post->id) }}" class="btn btn-success">Chỉnh sửa</a>
+                        <td> {{ $post->status }} </td>
+                        <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
+                        <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
+                        <td></td>
+                        <td style="display:flex;">
+                            <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                             <form method="POST" action="{{ route('backend.posts.destroy', $post->id) }}">
                               @csrf
                               @method('DELETE')
@@ -84,7 +86,7 @@
                             </form>
                         </td>
                     </tr>
-                    @endforeach;
+                    @endforeach
                   </tbody>
                 </table>
               </div>

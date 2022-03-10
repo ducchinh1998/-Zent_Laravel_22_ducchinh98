@@ -59,7 +59,7 @@ Chỉnh sửa Users
             <input type="password" class="form-control" name="password" value="{{ $user->password }}">
         </div>
         <div>
-          <a href="{{ route('backend.users.index') }}" class="btn btn-primary">Hủy</a>
+          <a href="{{ route('backend.users.index') }}" class="btn btn-danger">Hủy</a>
           <button style="margin-left:85%" type="submit" class="btn btn-primary">Update</button>
         </div>
     </form>

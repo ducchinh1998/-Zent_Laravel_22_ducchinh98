@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Backend;
-
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -15,7 +15,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-       return view('backend.categories.index');
         $categories = DB::table('categories')->get();
         return view('backend.categories.index', ['categories' => $categories]);
     }
@@ -38,12 +37,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request();
-        DB::table('categories')->insert([
-            'name' => $data['name'],
-           'created_at' => now(),
-           'updated_at' => now()
-        ]);
+        $data=$request->only(['name']);
+        $category=new Category();
+        $category->name= $data['name'];
+        $category->save();
         return redirect()->route('backend.categories.index');
     }
 
@@ -66,7 +63,6 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.categories.edit');
         $category = DB::table('categories')->find($id);
 
         return view('backend.categories.edit', ['category' => $category]);
@@ -97,7 +93,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('posts')->where('id', $id)->dekete();
-        return redirect()->route('backend.posts.index');
+        DB::table('categories')->where('id', $id)->delete();
+        return redirect()->route('backend.categories.index');
     }
 }

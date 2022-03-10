@@ -41,7 +41,7 @@
       <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Nhập mật khẩu" />
     </div>
     <div>
-      <a href="{{ route('backend.users.index') }}" class="btn btn-primary">Hủy</a>
+      <a href="{{ route('backend.users.index') }}" class="btn btn-danger">Hủy</a>
       <button style="margin-left:85%" type="submit" class="btn btn-primary">Tạo mới</button>
     </div>
   </form>

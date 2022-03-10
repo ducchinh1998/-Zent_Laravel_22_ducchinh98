@@ -84,6 +84,60 @@
               </li>
             </ul>
           </li>
+
+          {{-- Quản lý danh mục --}}
+          <li class="nav-item">
+            <a href="#2" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Quản lý danh mục
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('backend.categories.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tạo mới danh mục</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('backend.categories.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách danh mục</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          {{-- Quản lý bài viết --}}
+          <li class="nav-item">
+            <a href="#2" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Quản lý bài viết
+                <i class="fas fa-angle-left right"></i>
+
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('backend.posts.create') }}" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tạo mới bài viết</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('backend.posts.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách bài viết</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

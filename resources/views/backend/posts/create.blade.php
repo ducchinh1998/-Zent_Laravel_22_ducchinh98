@@ -29,22 +29,43 @@ Tạo mới bài viết
 @endsection
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-12 md-2">
-            <div class="card-body">
-                <form method=”POST” action="">
-                    @csrf
-                    <div>
-                        <textarea name="editor1"></textarea>
-                    </div>
-                    <button type=”submit” class="btn btn-success btn-sm mt-2">Lưu</button>
-                    <button type=”submit” class="btn btn-danger btn-sm mt-2">Hủy</button>
-                </form>
-
-            </div>
+    <form action="{{ route('backend.posts.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="form-group">
+            <label for="">Tiêu đề</label>
+            <input type="text" class="form-control" id="" placeholder="" name="title">
         </div>
-    </div>
+        <div class="form-group">
+            <label for="">Slug</label>
+            <input type="text" class="form-control" id="" placeholder="" name="slug">
+            <!-- <textarea name="description" class="form-control" id="" cols="40" rows="5"></textarea> -->
+            <!-- <input type="text" class="form-control" id="" placeholder="" name="description"> -->
+        </div>
+        <div class="form-group">
+            <label for="">Ảnh</label>
+            <input type="file" class="form-control" id="image_url" name="image_url">
+        </div>
+        <div class="form-group">
+            <label for="">Danh mục</label>
+            <select class="form-control" name="category_id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Tác giả</label>
+            <select class="form-control" name="user_id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="">Nội dung</label>
+            <textarea name="content" class="form-control" id="editor1" cols="40" rows="10"></textarea>
+        </div>
+        <a href="{{ route('backend.posts.index') }}" class="btn btn-danger">Hủy</a>
+        <button style="margin-left:85%" type="submit" class="btn btn-primary">Tạo mới</button>
+    </form>
 </div>
+@endsection
 <script>
 CKEDITOR.replace('editor1');
 </script>

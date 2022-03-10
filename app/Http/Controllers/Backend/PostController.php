@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -16,7 +18,6 @@ class PostController extends Controller
     public function index()
     {
         //
-        return view('backend.posts.index');
         $posts = DB::table('posts')->get();
         return view('backend.posts.index', ['posts' => $posts]);
     }
@@ -76,7 +77,6 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        return view('backend.posts.edit', 1);
         $post = DB::table('posts')->find($id);
         return view('backend.posts.edit', ['post' => $post]);
     }
@@ -111,7 +111,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('posts')->where('id', $id)->dekete();
+        DB::table('posts')->where('id', $id)->delete();
         return redirect()->route('backend.posts.index');
     }
 }
