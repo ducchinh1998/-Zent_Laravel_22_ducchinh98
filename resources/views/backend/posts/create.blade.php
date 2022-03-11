@@ -66,7 +66,4 @@ Tạo mới bài viết
     </form>
 </div>
 @endsection
-<script>
-CKEDITOR.replace('editor1');
-</script>
-@endsection
+

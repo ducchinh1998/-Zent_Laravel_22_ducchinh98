@@ -27,6 +27,22 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-12">
+             {{-- Filter --}}
+          <form style="margin: 20px 0" method="GET" action="{{ route('backend.posts.index')}}" class="form-inline"  >
+            <div class="col-3">
+              <input value="{{ request()->get('title')}}" name="title" type="text" class="form-control" placeholder="Nhập tiêu đề cần tìm..">
+            </div>
+            <div class="col-3">
+              <input value="{{ request()->get('status')}}" name="status" type="text" class="form-control" placeholder="Trạng thái....">
+            </div>
+
+            <div style="margin-right: 5px">
+                <button type="submit" class="btn btn-info">Lọc</button>
+              </div>
+            {{-- <div >
+                <a href="{{ route('backend.posts.index')}}" class="btn btn-default"> Quay lại</a>
+            </div> --}}
+        </form>
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Danh sách</h3>
@@ -63,7 +79,7 @@
                   <tbody>
                   @foreach($posts as $key=>$post)
                   <tr>
-                        <td>{{ $key+1 }}</td>
+                        <td>{{ $post->id }}</td>
                         <td> <a href="">{{ $post->title }}</a> </td>
                         <td>
                             {{-- <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;"> --}}

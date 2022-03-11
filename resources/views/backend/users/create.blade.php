@@ -33,9 +33,19 @@
       <input class="form-control" name="email" id="inputEmail" type="email" placeholder="name@example.com" />
     </div>
     <div class="form-floating mb-3">
-      <label for="avatar">avatar</label>
+      <label for="avatar">Avatar</label>
       <input type="file" class="form-control" id="avatar" name="avatar">
     </div>
+    <div class="form-floating mb-3">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" name="address">
+      </div>
+      <div class="form-floating mb-3">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control" id="phone" name="phone">
+      </div>
+
+
     <div class="form-floating mb-3">
       <label for="inputPassword" >Mật Khẩu</label>
       <input class="form-control" name="password" id="inputPassword" type="password" placeholder="Nhập mật khẩu" />

@@ -15,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->get();
+        $categories = DB::table('categories')
+        ->orderBy('id','desc')
+        ->get();
         return view('backend.categories.index', ['categories' => $categories]);
     }
 

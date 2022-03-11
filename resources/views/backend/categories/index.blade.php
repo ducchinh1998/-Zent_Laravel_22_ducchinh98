@@ -49,7 +49,7 @@
               <tbody>
               @foreach($categories as $key=>$category)
               <tr>
-                    <td>{{ $key+1 }}</td>
+                    <td>{{ $category->id }}</td>
                     <td><a href="">{{ $category->name }}</a> </td>
                     <td>{!! date('d/m/Y', strtotime($category->created_at)) !!}</td>
                     <td style="display:flex;">

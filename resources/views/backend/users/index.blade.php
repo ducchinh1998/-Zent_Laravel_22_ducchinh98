@@ -10,12 +10,12 @@
   <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0">Danh sách users</h1>
+              <h1 class="m-0">Danh sách người dùng</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Danh sách Users</li>
+                <li class="breadcrumb-item active">Danh sách người dùng</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -27,9 +27,25 @@
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-12">
+          {{-- Filter --}}
+          <form style="margin: 20px 0" method="GET" action="{{ route('backend.users.index')}}" class="form-inline"  >
+                        <div class="col-3">
+                          <input value="{{ request()->get('name')}}" name="name" type="text" class="form-control" placeholder="Nhập tên cần tìm..">
+                        </div>
+                        <div class="col-3">
+                          <input value="{{ request()->get('email')}}" name="email" type="text" class="form-control" placeholder="Nhập email cần tìm">
+                        </div>
+
+                        <div style="margin-right: 5px">
+                            <button type="submit" class="btn btn-info">Lọc</button>
+                          </div>
+                        {{-- <div >
+                            <a href="{{ route('backend.users.index')}}" class="btn btn-default"> Quay lại</a>
+                        </div> --}}
+                    </form>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">Danh sách</h3>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -48,7 +64,7 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>ID</th>
+                      <th>STT</th>
                       <th>Name</th>
                       <th>Avatar</th>
                       <th>Email</th>
@@ -57,16 +73,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                  @foreach($users as $user)
+                  @foreach($users as $key=>$user)
                   <tr>
                       <td>{{ $user->id }}</td>
                       <td> <a href="">{{ $user->name }}</a> </td>
                       <td><img src="{{ $user->avatar }}" alt=""></td>
                       <td>{{ $user->email }}</td>
-                      <td>{{ $user->created_at }}</td>
-                      <td>
-                          <a href="{{ route('backend.users.show', $user->id) }}" class="btn btn-danger">Show</a>
-                          <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-success">Chỉnh sửa</a>
+                      <td>{!! date('d/m/Y', strtotime($user->created_at)) !!}</td>
+                      <td style="display:flex;">
+                          <a style="margin-right:10px;" href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                           <form method="POST" action="{{ route('backend.users.destroy', $user->id) }}">
                               @csrf
                               @method('DELETE')

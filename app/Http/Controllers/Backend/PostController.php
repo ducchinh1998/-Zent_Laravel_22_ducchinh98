@@ -18,7 +18,24 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = DB::table('posts')->get();
+        $title = request()->get('title');
+        $status = request()->get('status');
+        $posts_query = DB::table('posts')->orderBy('id','desc')->select('*');
+        // dd($posts_query);
+
+        if(!empty($title)){
+            $posts_query = $posts_query->where('title','LIKE',"%$title%");
+        }
+        // dd($title);
+
+
+        if(!empty($status)){
+            $posts_query = $posts_query->where('status','LIKE',"%$status%")();
+        }
+        // dd($status);
+
+
+        $posts = $posts_query->get();
         return view('backend.posts.index', ['posts' => $posts]);
     }
 
@@ -45,7 +62,7 @@ class PostController extends Controller
             'title' =>  $data['title'],
            'slug' =>  $data['slug'],
            'content' =>  $data['content'],
-           'user_create_id' => 1,
+           'user_created_id' => 1,
            'category_id' =>  1,
            'status' => 1,
            'created_at' => now(),

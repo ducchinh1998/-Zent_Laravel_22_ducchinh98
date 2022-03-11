@@ -15,9 +15,24 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = DB::table('users')->get();
+        $email = request()->get('email');
+        $name = request()->get('name');
+        $users_query = DB::table('users')->orderBy('id','desc')->select('*');
+        // dd($users_query);
+
+        if(!empty($email)){
+            $users_query = $users_query->where('email','LIKE',"%$email%");
+        }
+
+
+        if(!empty($name)){
+            $users_query = $users_query->where('name','LIKE',"%$name%");
+        }
+
+        $users = $users_query->get();
         return view('backend.users.index', ['users' => $users]);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,6 +52,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $data = request();
+        DB::table('users')->insert([
+            'name' => $data['name'],
+            'avatar' => $data['avatar'],
+            'email' => $data['email'],
+            'status' => '1',
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'password' => $data['password'],
+            // 'updated_at' => now()
+
+        ]);
         return redirect()->route('backend.users.index');
     }
 
