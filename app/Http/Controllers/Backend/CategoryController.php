@@ -15,9 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')
-        ->orderBy('id','desc')
-        ->get();
+        $categories = DB::table('categories')->orderBy('id','desc')->paginate(5);
         return view('backend.categories.index', ['categories' => $categories]);
     }
 
@@ -80,10 +78,13 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $data = request();
-        DB::table('categories')->where('id', $id)->update([
-            'name' => $data['name'],
-            'updated_at' => now()
-        ]);
+        // DB::table('categories')->where('id', $id)->update([
+        //     'name' => $data['name'],
+        //     'updated_at' => now()
+        // ]);
+        $category =Category::find($id);
+        $category->name= $data['name'];
+        $category->save();
         return redirect()->route('backend.categories.index');
     }
 

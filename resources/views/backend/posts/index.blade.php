@@ -45,7 +45,7 @@
         </form>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Danh sách</h3>
+                <a href="{{ route('backend.posts.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo bài viết</a>
 
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
@@ -70,23 +70,22 @@
                       <th>Danh mục</th>
                       <th>Tác giả</th>
                       <th>Trạng thái</th>
-                      <th>Lượt xem</th>
+                      {{-- <th>Lượt xem</th> --}}
                       <th>Thời gian tạo</th>
                       <th>Ngày cập nhật</th>
-                      <th>Hoạt động</th>
+                      <th class="text-center">Hoạt động</th>
                     </tr>
                   </thead>
                   <tbody>
                   @foreach($posts as $key=>$post)
                   <tr>
                         <td>{{ $post->id }}</td>
-                        <td> <a href="">{{ $post->title }}</a> </td>
+                        <td> <a href=""></a>{{ $post->title }}</td>
                         <td>
                             {{-- <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;"> --}}
                         </td>
                         <td>{{ $post->category_id }}</td>
                         <td> {{ $post->user_created_id }} </td>
-                        <td></td>
                         <td> {{ $post->status }} </td>
                         <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
                         <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
@@ -105,6 +104,10 @@
                     @endforeach
                   </tbody>
                 </table>
+                <div class="mt-3 float-right mr-5">
+                    {!! $posts->appends(request()->input())->links() !!}
+                    {{-- ->appends(request()->input()) --}}
+                </div>
               </div>
               <!-- /.card-body -->
             </div>

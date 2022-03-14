@@ -45,8 +45,7 @@
                     </form>
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Danh sách</h3>
-
+                <a href="{{ route('backend.users.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo người dùng</a>
                 <div class="card-tools">
                   <div class="input-group input-group-sm" style="width: 150px;">
                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -94,6 +93,10 @@
                     @endforeach
                   </tbody>
                 </table>
+                <div class="mt-3 float-right mr-5">
+                    {!! $users->appends(request()->input())->links() !!}
+                    {{-- ->appends(request()->input()) --}}
+                </div>
               </div>
               <!-- /.card-body -->
             </div>

@@ -15,28 +15,29 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $title = request()->get('title');
         $status = request()->get('status');
-        $posts_query = DB::table('posts')->orderBy('id','desc')->select('*');
+        $categories = Category::get();
+        $posts_query = DB::table('posts')->orderBy('created_at','desc')->select('*')->paginate(5);
         // dd($posts_query);
 
         if(!empty($title)){
-            $posts_query = $posts_query->where('title','LIKE',"%$title%");
+            $posts_query = Post::where('title','LIKE',"%$title%")->paginate(1);
         }
         // dd($title);
 
 
         if(!empty($status)){
-            $posts_query = $posts_query->where('status','LIKE',"%$status%")();
+            $posts_query = Post::where('status','LIKE',"%$status%")->paginate(1);
         }
         // dd($status);
 
 
-        $posts = $posts_query->get();
-        return view('backend.posts.index', ['posts' => $posts]);
+        $posts = $posts_query;
+        return view('backend.posts.index', ['posts' => $posts , 'categories' => $categories ]);
     }
 
     /**
@@ -46,7 +47,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('backend.posts.create');
+        $categories=Category::get();
+        return view('backend.posts.create')->with([
+            'categories' => $categories
+        ]);
+
     }
 
     /**
@@ -57,18 +62,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request();
-        DB::table('posts')->insert([
-            'title' =>  $data['title'],
-           'slug' =>  $data['slug'],
-           'content' =>  $data['content'],
-           'user_created_id' => 1,
-           'category_id' =>  1,
-           'status' => 1,
-           'created_at' => now(),
-           'updated_at' => now()
+        $data = $request->only(['title', 'content','status','user_id']);
+        $post = new Post();
+        $post->title = $data['title'];
+        // $post->slug= $data['title'];
+        // $post->status=$data['status'];
+        $post->user_created_id = 1;
+        $post->category_id= 1;
+        $post->content=$data['content'];
+        $post->save();
 
-        ]);
+        // DB::table('posts')->insert([
+        //     'title' =>  $data['title'],
+        //    'slug' =>  $data['slug'],
+        //    'content' =>  $data['content'],
+        //    'user_created_id' => 1,
+        //    'category_id' =>  1,
+        //    'status' => 1,
+        //    'created_at' => now(),
+        //    'updated_at' => now()
+
+        // ]);
         return redirect()->route('backend.posts.index');
     }
 
@@ -108,15 +122,23 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $data = request();
-        DB::table('posts')->where('id', $id)->update([
-            'title' =>  $data['title'],
-        //    'slug' =>  $data['slug'],
-           'content' =>  $data['content'],
-        //    'user_create_id' => 1,
-        //    'category_id' =>  1,
-           'status' => $data['status'],
-           'updated_at' => now()
-        ]);
+        // DB::table('posts')->where('id', $id)->update([
+        //     'title' =>  $data['title'],
+        // //    'slug' =>  $data['slug'],
+        //    'content' =>  $data['content'],
+        // //    'user_create_id' => 1,
+        // //    'category_id' =>  1,
+        //    'status' => $data['status'],
+        //    'updated_at' => now()
+        // ]);
+        $post = Post::find($id);
+        $post->title = $data['title'];
+        // $post->slug= $data['title'];
+        // $post->status=$data['status'];
+        $post->user_created_id = 1;
+        $post->category_id= 1;
+        $post->content=$data['content'];
+        $post->save();
         return redirect()->route('backend.posts.index');
     }
 
@@ -128,7 +150,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('posts')->where('id', $id)->delete();
+        // DB::table('posts')->where('id', $id)->delete();
+        $post = Post::find($id);
+        $post->delete();
         return redirect()->route('backend.posts.index');
     }
 }
