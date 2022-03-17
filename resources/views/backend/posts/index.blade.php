@@ -68,7 +68,8 @@
                       <th>Tiêu đề</th>
                       <th>Ảnh</th>
                       <th>Danh mục</th>
-                      <th>Tác giả</th>
+                      <th>Tags</th>
+                      <th>Người tạo</th>
                       <th>Trạng thái</th>
                       {{-- <th>Lượt xem</th> --}}
                       <th>Thời gian tạo</th>
@@ -85,12 +86,17 @@
                             {{-- <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;"> --}}
                         </td>
                         <td>{{ $post->category_id }}</td>
+                        <td>
+                            @foreach ($post->tags as $tag )
+                                <span class="badge badge -info">{{ $tag->name }}</span>
+                            @endforeach
+                        </td>
                         <td> {{ $post->user_created_id }} </td>
-                        <td> {{ $post->status }} </td>
+                        <td> {{ $post->status_text }} </td>
                         <td>{!! date('d/m/Y', strtotime($post->created_at)) !!}</td>
                         <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
                         <td></td>
-                        <td style="display:flex;">
+                        <td style="display:flex; margin-left: -125px;" >
                             <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                             <form method="POST" action="{{ route('backend.posts.destroy', $post->id) }}">
                               @csrf

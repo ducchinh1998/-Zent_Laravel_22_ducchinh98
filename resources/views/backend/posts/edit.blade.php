@@ -44,8 +44,25 @@ Chỉnh sửa Users
         </div> -->
         <div class="form-group">
             <label for="">Danh mục</label>
-            <select class="form-control" name="category_id">
-                <option value=""></option>
+            <select class="form-control select2" name="category_id">
+                <option value="0">
+                    Chọn danh mục
+                </option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Tags</label>
+            <select multiple="" name="tags[]" class="form-control">
+                <option value="0">
+                    Chọn Tags
+                </option>
+                @foreach ($tags as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
             </select>
         </div>
         <div class="form-group">

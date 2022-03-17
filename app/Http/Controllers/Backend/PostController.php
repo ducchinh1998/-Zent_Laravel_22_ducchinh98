@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +23,8 @@ class PostController extends Controller
         $title = request()->get('title');
         $status = request()->get('status');
         $categories = Category::get();
-        $posts_query = DB::table('posts')->orderBy('created_at','desc')->select('*')->paginate(5);
+        // $posts_query = DB::table('posts')->orderBy('created_at','desc')->select('*')->paginate(5);
+        $posts_query = Post::orderBy('created_at','desc')->select('*')->paginate(5);
         // dd($posts_query);
 
         if(!empty($title)){
@@ -48,8 +51,10 @@ class PostController extends Controller
     public function create()
     {
         $categories=Category::get();
+        $tags = Tag::get();
         return view('backend.posts.create')->with([
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ]);
 
     }
@@ -63,6 +68,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->only(['title', 'content','status','user_id']);
+        $tags = $request->get('tags');
+        // dd($tags);
         $post = new Post();
         $post->title = $data['title'];
         // $post->slug= $data['title'];
@@ -71,6 +78,12 @@ class PostController extends Controller
         $post->category_id= 1;
         $post->content=$data['content'];
         $post->save();
+
+        $user = User::find(1);
+        $user->posts()->save($post);
+
+        $post->tags()->attach($tags);
+
 
         // DB::table('posts')->insert([
         //     'title' =>  $data['title'],
@@ -94,10 +107,18 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return view('backend.posts.show', 1);
+
+
+        // return view('backend.posts.show', $id);
         $post = DB::table('posts')->find($id);
+        // foreach($post->tags as $tag){
+        //     echo $tag->name;
+        // }
         // dd($post);
-        return view('backend.posts.show', ['post' => $post]);
+        return view('backend.posts.show',$id,
+        [
+            'post' => $post
+        ]);
     }
 
     /**
@@ -108,8 +129,17 @@ class PostController extends Controller
      */
     public function edit($id)
     {
+        $categories=Category::get();
         $post = DB::table('posts')->find($id);
-        return view('backend.posts.edit', ['post' => $post]);
+        $tags = Tag::get();
+
+
+        return view('backend.posts.edit',
+        [
+            'post' => $post,
+            'categories'=>$categories,
+            'tags' => $tags
+        ]);
     }
 
     /**

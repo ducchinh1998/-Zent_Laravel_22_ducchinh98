@@ -25,8 +25,8 @@
 @section ('content')
 <h1>Chi tiết user {{ $user->id }}</h1>
 <h4>Tên: {{ $user->name }}</h4>
-<h4>rạng thái: {{ $user->status }}</h4>
+<h4>trạng thái: {{ $user->status }}</h4>
 <h4>Địa chỉ email: {{ $user->email }}</h4>
-<h4>Số điện thoại: {{ $user->phone }}</h4>
-<h4>Địa chỉ: {{ $user->address }}</h4>
+<h4>Số điện thoại: {{ $user->userInfo->phone ?? 'phone' }}</h4>
+<h4>Địa chỉ: {{ $user->userInfo->address ?? 'address' }}</h4>
 @endsection

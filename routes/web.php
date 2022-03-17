@@ -38,6 +38,7 @@ Route::prefix('backend')
         Route::post('/store','UserController@store')->name('backend.users.store');
 
         Route::get('/edit/{id}','UserController@edit')->name('backend.users.edit');
+        Route::get('/show/{id}','UserController@show')->name('backend.users.show');
         Route::put('/update/{id}','UserController@update')->name('backend.users.update');
         Route::delete('/delete/{id}','UserController@destroy')->name('backend.users.destroy');
 
@@ -53,6 +54,7 @@ Route::prefix('backend')
         Route::post('/store','PostController@store')->name('backend.posts.store');
 
         Route::get('/edit/{id}','PostController@edit')->name('backend.posts.edit');
+        Route::get('/show/{id}','UserController@show')->name('backend.users.show');
         Route::put('/update/{id}','PostController@update')->name('backend.posts.update');
         Route::delete('/delete/{id}','PostController@destroy')->name('backend.posts.destroy');
 

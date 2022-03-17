@@ -10,6 +10,7 @@ class Post extends Model
 {
     use HasFactory;
     protected $table= 'posts';
+    protected $fillable = ['title','slug','image_url','content','user_created_id','category_id','status'];
     public $timestamps=true;
     const CREATED_AT='created_at';
     const UPDATED_AT='updated_at';
@@ -20,9 +21,6 @@ class Post extends Model
     //     '0' => 'Draft',
     //     '1' => 'Public'
     // ];
-
-
-
 
     // public function getStatusTextAttribute(){
     //     // if($this->status = 1){
@@ -55,7 +53,17 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo( User::class );
+        return $this->belongsTo( User::class,'id','user_created_id');
+    }
+
+    // public function userUpdate(){
+    //     return $this->belongsTo(User::class, 'user_updated_id');
+    // }
+
+
+    public function tags()
+    {
+        return $this->belongsToMany( Tag::class );
     }
 
 }

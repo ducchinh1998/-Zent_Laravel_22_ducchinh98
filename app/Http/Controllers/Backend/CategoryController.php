@@ -15,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = DB::table('categories')->orderBy('id','desc')->paginate(5);
+        // $categories = DB::table('categories')->orderBy('id','desc')->paginate(5);
+        $categories = Category::orderBy('id','desc')->paginate(5);
         return view('backend.categories.index', ['categories' => $categories]);
     }
 
@@ -96,7 +97,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('categories')->where('id', $id)->delete();
+        // DB::table('categories')->where('id', $id)->delete();
+        Category::destroy($id);
         return redirect()->route('backend.categories.index');
     }
 }

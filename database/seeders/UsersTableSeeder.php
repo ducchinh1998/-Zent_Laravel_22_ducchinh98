@@ -15,57 +15,83 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table ('users')->truncate();
+        DB::table ('user_infos')->truncate();
+
         $users = [
             [
-                'name' => 'Ducchinh',
-                'avatar' => 'dc.png',
-                'address' => 'Hải Dương',
-                'email' => 'admin@gmail.com',
-                'phone' => '0386424716',
-                'password' => bcrypt('123456'),
-                'status' => '1'
+                'user' => [
+                    'name' => 'Ducchinh',
+                    'avatar' => 'dc.png',
+                    'email' => 'admin@gmail.com',
+                    'password' => bcrypt('123456'),
+                    'status' => '1'
+                ],
+                'info' => [
+                    'address' => 'Hải Dương',
+                    'phone' => '0386424716'
+                ],
             ],
             [
-                'name' => 'Admin1',
-                'avatar' => 'nen1.png',
-                'address' => 'Hà Nội',
-                'email' => 'admin1@gmail.com',
-                'phone' => '03363228745',
-                'password' => bcrypt('123456'),
-                'status' => '1'
+                'user' => [
+                    'name' => 'Admin1',
+                    'avatar' => 'nen1.png',
+                    'email' => 'admin1@gmail.com',
+                    'password' => bcrypt('123456'),
+                    'status' => '1'
+                ],
+                'info' => [
+                    'address' => 'Hà Nội',
+                    'phone' => '0975758483'
+                ],
             ],
             [
-                'name' => 'Admin2',
-                'avatar' => 'nen2.png',
-                'address' => 'Hưng Yên',
-                'email' => 'admin2@gmail.com',
-                'phone' => '03331228745',
-                'password' => bcrypt('123456'),
-                'status' => '1'
+                'user' => [
+                    'name' => 'Admin2',
+                    'avatar' => 'nen1.png',
+                    'email' => 'admin2@gmail.com',
+                    'password' => bcrypt('123456'),
+                    'status' => '1'
+                ],
+                'info' => [
+                    'address' => 'Hưng Yên',
+                    'phone' => '0385592322'
+                ],
             ],
             [
-                'name' => 'Admin3',
-                'avatar' => 'nen3.png',
-                'address' => 'dong nai3',
-                'email' => 'admin3@gmail.com',
-                'phone' => '03332287245',
-                'password' => bcrypt('123456'),
-                'status' => '1'
+                'user' => [
+                    'name' => 'Admin3',
+                    'avatar' => 'nen1.png',
+                    'email' => 'admin3@gmail.com',
+                    'password' => bcrypt('123456'),
+                    'status' => '1'
+                ],
+                'info' => [
+                    'address' => 'TP HCM',
+                    'phone' => '0386984343'
+                ],
             ],
             [
-                'name' => 'Admin4',
-                'avatar' => 'nen4.png',
-                'address' => 'Bắc Ninh',
-                'email' => 'admin4@gmail.com',
-                'phone' => '03332238745',
-                'password' => bcrypt('123456'),
-                'status' => '1'
-            ]
+                'user' => [
+                    'name' => 'Admin4',
+                    'avatar' => 'nen1.png',
+                    'email' => 'admin4@gmail.com',
+                    'password' => bcrypt('123456'),
+                    'status' => '1'
+                ],
+                'info' => [
+                    'address' => 'Hải Phòng',
+                    'phone' => '0958533221'
+                ],
+            ],
 
         ];
 
         foreach ($users as $user) {
-            DB::table('users')->insert($user);
+            $user_id = DB::table('users')->insertGetId($user['user']);
+
+            $user['info']['user_id'] =$user_id;
+            DB::table('user_infos')->insert($user['info']);
+
         }
     }
 }

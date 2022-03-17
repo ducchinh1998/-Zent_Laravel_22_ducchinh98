@@ -67,6 +67,8 @@
                       <th>Name</th>
                       <th>Avatar</th>
                       <th>Email</th>
+                      <th>Address</th>
+                      <th>Phone</th>
                       <th>Thời gian tạo</th>
                       <th>Hoạt động</th>
                     </tr>
@@ -78,6 +80,8 @@
                       <td> <a href="">{{ $user->name }}</a> </td>
                       <td><img src="{{ $user->avatar }}" alt=""></td>
                       <td>{{ $user->email }}</td>
+                      <td>{{ $user->userInfo->address ?? 'address' }}</td>
+                      <td>{{ $user->userInfo->phone ?? 'phone' }}</td>
                       <td>{!! date('d/m/Y', strtotime($user->created_at)) !!}</td>
                       <td style="display:flex;">
                           <a style="margin-right:10px;" href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>

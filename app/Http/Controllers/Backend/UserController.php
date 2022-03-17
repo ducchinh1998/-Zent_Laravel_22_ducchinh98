@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -19,7 +20,9 @@ class UserController extends Controller
     {
         $email = request()->get('email');
         $name = request()->get('name');
-        $users_query = DB::table('users')->orderBy('created_at','desc')->select('*')->paginate(5);
+        // $users = User::withTrashed()->get();
+        // $users_query = DB::table('users')->orderBy('created_at','desc')->select('*')->paginate(5);
+        $users_query = User::orderBy('created_at','desc')->select('*')->paginate(5);
         // dd($users_query);
 
         if(!empty($email)){
@@ -56,16 +59,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $data = request();
-        DB::table('users')->insert([
+         DB::table('users')->insert([
             'name' => $data['name'],
             'avatar' => $data['avatar'],
             'email' => $data['email'],
             'status' => '1',
-            'address' => $data['address'],
-            'phone' => $data['phone'],
             'password' => $data['password'],
             // 'updated_at' => now()
 
+
+        ]);
+        
+        $user= DB::table('users')->latest('id')->first();
+        // dd($user);
+        DB::table('user_infos')->insert([
+            
+            'user_id' => $user->id,
+            'address' => $data['address'],
+            'phone' => $data['phone'],
         ]);
         return redirect()->route('backend.users.index');
     }
@@ -78,7 +89,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = DB::table('users')->find($id);
+        $user = User::find($id);
+
+        $posts = $user->posts;
+        // dd($posts);
+
+        // $userInfo = UserInfo::where('phone','')->first();
+        // $user = $userInfo->user;
+        // dd($userInfo);
         return view('backend.users.show', ['user' => $user]);
     }
 

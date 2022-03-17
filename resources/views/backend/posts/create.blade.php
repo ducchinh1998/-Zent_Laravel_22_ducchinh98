@@ -53,6 +53,17 @@
                 </select>
             </div>
             <div class="form-group">
+                <label>Tags</label>
+                <select multiple="" name="tags[]" class="form-control">
+                    <option value="0">
+                        Chọn Tags
+                    </option>
+                    @foreach ($tags as $item)
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="">Nội dung</label>
                 <textarea name="content" class="form-control" id="editor1" cols="40" rows="10"></textarea>
             </div>
