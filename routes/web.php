@@ -73,3 +73,14 @@ Route::prefix('backend')
     });
 
 });
+
+//Frontend
+
+Route::prefix('/frontend')
+->namespace('Frontend')
+->group(function(){
+    Route::get('/home','HomeController@index')->name('frontend.home');
+    Route::get('/index','PostController@index')->name('frontend.posts.index');
+});
+
+

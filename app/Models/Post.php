@@ -32,7 +32,7 @@ class Post extends Model
     // }
 
     public function getStatusTextAttribute(){
-        if($this->status = 1){
+        if($this->status == self::STATUS_SHOW ){
              $name = 'Public';
         }else{
              $name = 'Draft';
