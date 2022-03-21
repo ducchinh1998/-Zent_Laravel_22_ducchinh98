@@ -26,8 +26,9 @@ Route::get('/', function () {
 
 Route::prefix('backend')
 ->namespace('Backend')
+->middleware(['auth'])
 ->group(function(){
-    Route::get('/dashboard','DashboardController@index')->name('backend.dashboard.index');
+    Route::get('/dashboard','DashboardController@index')->middleware('auth')->name('backend.dashboard.index');
 
 
     //  Route::Resource('users', UsersController::class);
@@ -80,7 +81,21 @@ Route::prefix('/frontend')
 ->namespace('Frontend')
 ->group(function(){
     Route::get('/home','HomeController@index')->name('frontend.home');
-    Route::get('/index','PostController@index')->name('frontend.posts.index');
+    Route::get('/posts/index','PostController@index')->name('frontend.posts.index');
 });
 
+Route::prefix('/')
+->namespace('Auth')
+->group(function(){
+    Route::get('/register','RegisteredUserController@create');
+    Route::post('/register','RegisteredUserController@store')
+    ->name('register');
 
+    Route::get('/login','LoginController@create')
+    ->name('login');
+
+    Route::post('/login','LoginController@authenticate')
+    ->name('login');
+
+    Route::post('/logout', 'LoginController@logout')->name('logout');
+});
