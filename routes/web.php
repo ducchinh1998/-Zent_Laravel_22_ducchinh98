@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::prefix('backend')
 ->namespace('Backend')
-->middleware(['auth'])
+->middleware(['auth','role:admin,admod'])
 ->group(function(){
     Route::get('/dashboard','DashboardController@index')->middleware('auth')->name('backend.dashboard.index');
 
@@ -60,7 +60,6 @@ Route::prefix('backend')
         Route::delete('/delete/{id}','PostController@destroy')->name('backend.posts.destroy');
 
     });
-
 
     Route::group(['prefix' => 'categories'],function(){
         Route::get('/index','CategoryController@index')->name('backend.categories.index');

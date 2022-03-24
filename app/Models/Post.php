@@ -53,7 +53,7 @@ class Post extends Model
 
     public function user()
     {
-        return $this->belongsTo( User::class,'id','user_created_id');
+        return $this->belongsTo( User::class,'user_created_id','id');
     }
 
     // public function userUpdate(){

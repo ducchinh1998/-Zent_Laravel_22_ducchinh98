@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserInfo;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -69,11 +70,11 @@ class UserController extends Controller
 
 
         ]);
-        
+
         $user= DB::table('users')->latest('id')->first();
         // dd($user);
         DB::table('user_infos')->insert([
-            
+
             'user_id' => $user->id,
             'address' => $data['address'],
             'phone' => $data['phone'],
@@ -144,6 +145,12 @@ class UserController extends Controller
     public function destroy($id)
     {
         // DB::table('users')->where('id', $id)->delete();
+          $user = User::find($id);
+
+        if(! Gate::allows('delete-user',$user)){
+            abort(403);
+        }
+
         User::destroy($id);
         return redirect()->route('backend.users.index');
     }

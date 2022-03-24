@@ -7,11 +7,17 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class,'post');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -67,6 +73,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        if($request->user()->cannot('update',Post::class)){
+            abort(403);
+        }
+
         $data = $request->only(['title', 'content','status','user_id']);
         $tags = $request->get('tags');
         // dd($tags);
@@ -151,7 +161,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = request();
+
         // DB::table('posts')->where('id', $id)->update([
         //     'title' =>  $data['title'],
         // //    'slug' =>  $data['slug'],
@@ -162,6 +172,15 @@ class PostController extends Controller
         //    'updated_at' => now()
         // ]);
         $post = Post::find($id);
+        // if(! Gate::allows('update-post',$post)){
+        //     abort(403);
+        // }
+        if($request->user()->cannot('update',$post)){
+            abort(403);
+        }
+
+        $data = request()->only(['title','content']);
+        $tags = $request->get('tags');
         $post->title = $data['title'];
         // $post->slug= $data['title'];
         // $post->status=$data['status'];

@@ -70,7 +70,7 @@
                             <li><a href="{{ route('login') }}"><i class="fa fa-lock"></i> Login</a></li>
                             <li><a href="register"><i class="fa fa-user"></i> Register</a></li>
                             @endif
-                            <li><a href="{{ route('logo') }}"><i class="fa fa-lock"></i> Logout</a></li>
+                            <li><a href="{{ route('logout') }}"><i class="fa fa-lock"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
