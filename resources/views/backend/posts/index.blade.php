@@ -45,7 +45,7 @@
         </form>
             <div class="card">
               <div class="card-header">
-                  @can('create', App\Models\Post::class)
+                  @can('create-post', App\Models\Post::class)
                 <a href="{{ route('backend.posts.create') }}" class="btn btn-success"><i style="margin-right:10px" class="fas fa-plus"></i>Tạo bài viết</a>
                 @endcan
                 <div class="card-tools">
@@ -86,7 +86,7 @@
                         <td>
                             {{-- <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;"> --}}
                         </td>
-                        <td class="text-center">{{ $post->category_id }}</td>
+                        <td class="text-center">{{ $post->category->name}}</td>
                         <td>
                             @foreach ($post->tags as $tag )
                                 <span class="badge badge -info">{{ $tag->name }}</span>
@@ -98,11 +98,11 @@
                         <td>{!! date('d/m/Y', strtotime($post->updated_at)) !!}</td>
                         <td></td>
                         <td style="display:flex; margin-left: -125px;" >
-                            @can('update',$post)
+                            @can('create-post', App\Models\Post::class)
                             <a style="margin-right:10px;" href="{{ route('backend.posts.edit', $post->id) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                             @endcan
 
-                            @can('delete',$post)
+                            @can('delete-post',App\Models\Post::class)
                             <form method="POST" action="{{ route('backend.posts.destroy', $post->id) }}">
                               @csrf
                               @method('DELETE')

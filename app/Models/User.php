@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Permissions\HasPermissionsTrait;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasPermissionsTrait;
     use SoftDeletes;
 
     /**
@@ -52,4 +54,36 @@ class User extends Authenticatable
         return $this->hasMany(Post::class,'user_created_id','id');
 
     }
+
+    public function roles() {
+
+        return $this->belongsToMany(Role::class,'users_roles');
+
+    }
+    public function permissions() {
+
+        return $this->belongsToMany(Permission::class,'users_permissions');
+
+    }
+
+    protected function hasPermission($permission) {
+
+        return (bool) $this->permissions->where('slug', $permission->slug)->count();
+    }
+
+    public function hasPermissionTo($permission) {
+
+        return $this->hasPermissionThroughRole($permission) || $this->hasPermission($permission);
+    }
+
+    public function hasPermissionThroughRole($permission) {
+
+        foreach ($permission->roles as $role){
+            if($this->roles->contains($role)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+

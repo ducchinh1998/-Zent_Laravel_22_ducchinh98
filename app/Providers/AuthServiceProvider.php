@@ -28,24 +28,24 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('update-post',function(User $user,Post $post){
-            // if($user->id === $post->user_id){
-            //     return true;
-            // }else{
-            //     return false;
-            // }
-            return $user->id === $post->user_id | $user->role == 'admin';
-        });
+        // Gate::define('update-post',function(User $user,Post $post){
+        //     // if($user->id === $post->user_id){
+        //     //     return true;
+        //     // }else{
+        //     //     return false;
+        //     // }
+        //     return $user->id === $post->user_created_id | $user->role == 'admin';
+        // });
 
-        Gate::define('delete-user',function(User $user ){
-            if($user->role =='admin'){
-                return true;
-            }else{
-                return false;
-            }
+        // Gate::define('delete-user',function(User $user ){
+        //     if($user->role =='admin'){
+        //         return true;
+        //     }else{
+        //         return false;
+        //     }
 
-            // return $user->id === $user_id | $user->role == 'admin';
-        });
+        //     // return $user->id === $user_id | $user->role == 'admin';
+        // });
         //
     }
 }

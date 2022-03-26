@@ -107,9 +107,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = DB::table('users')->find($id);
+        // $user = DB::table('users')->find($id);
         return view('backend.users.edit', ['user' => $user]);
     }
 
