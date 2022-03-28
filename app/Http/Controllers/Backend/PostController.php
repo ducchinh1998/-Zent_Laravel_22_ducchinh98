@@ -187,6 +187,11 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
 
+        $validated= $request->validate([
+            'name' => 'required|max:255',
+
+        ]);
+
         // DB::table('posts')->where('id', $id)->update([
         //     'title' =>  $data['title'],
         // //    'slug' =>  $data['slug'],

@@ -38,6 +38,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $validated= $request->validate([
+            'name' => 'required|unique:categories|max:255',
+        ]);
+
         $data=$request->only(['name']);
         $category=new Category();
         $category->name= $data['name'];
@@ -78,7 +82,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = request();
+        $validated= $request->validate([
+            'name' => 'required|max:255',
+
+        ]);
+
+
+        $data = $request->only(['name']);
         // DB::table('categories')->where('id', $id)->update([
         //     'name' => $data['name'],
         //     'updated_at' => now()
