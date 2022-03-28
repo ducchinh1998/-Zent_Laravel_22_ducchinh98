@@ -42,6 +42,7 @@ class CategoryController extends Controller
             'name' => 'required|unique:categories|max:255',
         ]);
 
+
         $data=$request->only(['name']);
         $category=new Category();
         $category->name= $data['name'];
@@ -82,6 +83,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $validated= $request->validate([
             'name' => 'required|max:255',
 

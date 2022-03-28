@@ -193,6 +193,7 @@ class PostController extends Controller
 
         ]);
 
+
         // DB::table('posts')->where('id', $id)->update([
         //     'title' =>  $data['title'],
         // //    'slug' =>  $data['slug'],
