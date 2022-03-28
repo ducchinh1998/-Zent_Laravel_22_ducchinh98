@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
 
+    //
     public function __construct()
     {
         $this->authorizeResource(Post::class,'post');
