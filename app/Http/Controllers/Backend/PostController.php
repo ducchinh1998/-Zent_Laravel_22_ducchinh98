@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -73,9 +74,33 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->user()->cannot('update',Post::class)){
-            abort(403);
-        }
+        // if($request->user()->cannot('update',Post::class)){
+        //     abort(403);
+        // }
+        // $validated = $request->validate([
+        //     'title' => 'required|unique:posts|min:20|max:255',
+        //     'content' => 'required',
+        //     ]);
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|unique:posts|min:20|max:255',
+            'content' => 'required',
+        ],
+        [
+            'required' => 'Thuộc tính :attribute là bắt buộc.',
+            'content.require' => 'Nội dung không được để trống'
+        ]
+
+        );
+
+            // dd($validator->fails());
+            if ($validator->fails()) {
+                return redirect('backend/posts/create')
+                ->withErrors($validator)
+                ->withInput();
+                }
+
+
 
         $data = $request->only(['title', 'content','status','user_id']);
         $tags = $request->get('tags');

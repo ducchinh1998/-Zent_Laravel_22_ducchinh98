@@ -29,11 +29,24 @@
 @endsection
 @section('content')
     <div class="container">
+        @if ($errors->any())
+<div class="alert alert-danger">
+    <ul>
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</ul>
+</div>
+@endif
         <form action="{{ route('backend.posts.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="">Tiêu đề</label>
-                <input type="text" class="form-control" id="" placeholder="" name="title">
+                <input type="text" class="form-control" id="" value="{{ old('title') }}"
+                class="@error('title') is-invalid @enderror" placeholder="" name="title">
+                @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
 
             </div>
             <div class="form-group">
