@@ -80,6 +80,19 @@
                 <label for="">Nội dung</label>
                 <textarea name="content" class="form-control" id="editor1" cols="40" rows="10"></textarea>
             </div>
+
+            <div class="form-group">
+                <label for="exampleInputFile">Tải lên ảnh</label>
+                <div class="input-group">
+                <div class="custom-file">
+                <input type="file" class="custom-file-input" name="image" id='anh'>
+                <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
+                </div>
+                <div class="input-group-append">
+                <span class="input-group-text">Tải lên</span>
+                </div>
+                </div>
+              </div>
             <a href="{{ route('backend.posts.index') }}" class="btn btn-danger">Hủy</a>
             <button style="margin-left:85%" type="submit" class="btn btn-primary">Tạo mới</button>
         </form>

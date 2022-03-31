@@ -84,7 +84,10 @@
                         <td>{{ $post->id }}</td>
                         <td> <a href=""></a>{{ $post->title }}</td>
                         <td>
-                            {{-- <img src="assets/backend/uploads/" width="100%" height="100px" style="border-radius: 5px; object-fit: cover;"> --}}
+                            @if(!empty($post->image))
+                                <img src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image)}}"
+                                    width="80px" height="50px">
+                            @endif
                         </td>
                         <td class="text-center">{{ $post->category->name}}</td>
                         <td>

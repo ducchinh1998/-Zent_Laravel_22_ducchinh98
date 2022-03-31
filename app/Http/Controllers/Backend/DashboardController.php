@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -14,7 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        //
+        $save = Storage::disk('local2')->put('file.txt', 'Contents');
+        // dd($save);
+
        return view('backend.dashboard');
     }
 
@@ -25,7 +28,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**

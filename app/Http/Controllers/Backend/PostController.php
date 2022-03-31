@@ -211,6 +211,15 @@ class PostController extends Controller
             abort(403);
         }
 
+        if($request->hasFile('image'))
+        {
+            $disk = 'public';
+            $path = $request->file('image')->store('blogs', $disk);
+            $post->disk = $disk;
+            $post->image = $path;
+        }
+            
+
         $data = request()->only(['title','content']);
         $tags = $request->get('tags');
         $post->title = $data['title'];

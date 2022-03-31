@@ -35,10 +35,37 @@ return [
             'root' => storage_path('app'),
         ],
 
+        'local2' => [
+            'driver' => 'local',
+            'root' => storage_path('app2'),
+        ],
+
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'avatars' => [
+            'driver' => 'local',
+            'root' => storage_path('app/avatars'),
+            'url' => env('APP_URL').'/avatars',
+            'visibility' => 'public',
+        ],
+
+        'products' => [
+            'driver' => 'local',
+            'root' => storage_path('app/products'),
+            'url' => env('APP_URL').'/products',
+            'visibility' => 'public',
+        ],
+
+        'images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/images'),
+            'url' => env('APP_URL').'/images',
             'visibility' => 'public',
         ],
 
@@ -68,6 +95,9 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('avatars') => storage_path('app/avatars'),
+        public_path('products') => storage_path('app/products'),
+        public_path('images') => storage_path('app/images'),
     ],
 
 ];
