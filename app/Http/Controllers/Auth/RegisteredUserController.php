@@ -31,24 +31,23 @@ public function store(Request $request)
     // ]);
     // return back();
 
-    $validator = Validator::make($request->all(), [
-       'name' => 'require',
-       'email' => 'required|unique:users',
-       'password' => 'required|confirmed',
-    ],
-    [
-        'required' => 'Thuộc tính :attribute Không được để trống',
-        'email.unique' => 'Thuộc tính :attribute đã được đăng ký'
-    ]
+    $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|min:3|max:255',
+                'email' => 'required|unique:users|email',
+                'password' => 'required|confirmed',
+            ],
+            [
+                'required' => 'Thuộc tính :attribute không được để trống',
+                'email.unique' => 'Thuộc tính :attribute đã được đăng ký',
+            ],
+        );
 
-    );
-
-        // dd($validator->fails());
         if ($validator->fails()) {
             return redirect('register')
-            ->withErrors($validator)
-            ->withInput();
-            }
-
+                ->withErrors($validator)
+                ->withInput();
+        }
 }
 }

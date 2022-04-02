@@ -85,7 +85,7 @@
                         <td> <a href=""></a>{{ $post->title }}</td>
                         <td>
                             @if(!empty($post->image))
-                                <img src="{{ Illuminate\Support\Facades\Storage::disk($post->disk)->url($post->image)}}"
+                                <img src="{{ $post->image_url_full}}"
                                     width="80px" height="50px">
                             @endif
                         </td>

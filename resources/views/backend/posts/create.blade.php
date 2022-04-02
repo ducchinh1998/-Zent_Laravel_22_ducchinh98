@@ -50,10 +50,6 @@
 
             </div>
             <div class="form-group">
-                <label for="">Ảnh</label>
-                <input type="file" class="form-control" id="image_url" name="image_url">
-            </div>
-            <div class="form-group">
                 <label for="">Danh mục</label>
                 <select class="form-control" name="category_id">
                     <option value="0">
@@ -98,3 +94,9 @@
         </form>
     </div>
 @endsection
+@section ('script')
+  <script>
+CKEDITOR.replace('editor1');
+</script>
+@endsection
+

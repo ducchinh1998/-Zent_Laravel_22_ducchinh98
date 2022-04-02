@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Post extends Model
@@ -30,6 +31,10 @@ class Post extends Model
     //     // }
     //     return $this->statusArr[$this->status];
     // }
+    public function getImageUrlFullAttribute(){
+        $url = Storage::disk($this->disk)->url($this->image);
+        return $url;
+    }
 
     public function getStatusTextAttribute(){
         if($this->status == self::STATUS_SHOW ){

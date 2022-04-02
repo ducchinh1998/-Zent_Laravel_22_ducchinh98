@@ -71,6 +71,15 @@
             Sign up using Google+
           </a>
         </div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+        </ul>
+        </div>
+        @endif
 
         <a href="{{ route('login') }}" class="text-center">I already have a membership</a>
       </div>

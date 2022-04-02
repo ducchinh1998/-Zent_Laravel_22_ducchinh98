@@ -38,10 +38,6 @@ Chỉnh sửa Users
                 <option value="0">0</option>
                 <option value="1">1</option>
             </select>
-        <!-- </div><div class="form-group">
-            <label for="">Ảnh</label>
-            <input type="file" class="form-control" name="thumbnail" value="">
-        </div> -->
         <div class="form-group">
             <label for="">Danh mục</label>
             <select class="form-control select2" name="category_id">
@@ -71,10 +67,6 @@ Chỉnh sửa Users
                 <option value=""></option>
             </select>
         </div>
-        <!-- <div class="form-group">
-            <label for="">Nội dung</label>
-            <input type="text" class="form-control" id="contentMovie"  name="content" >
-        </div> -->
         <div class="form-group">
             <label for="">Nội dung</label>
             <textarea name="content" class="form-control" id="editor1" cols="40" rows="10" value="{{ $post->content }}"></textarea>

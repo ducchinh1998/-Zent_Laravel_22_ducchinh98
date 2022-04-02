@@ -75,6 +75,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $disk = 'public';
+        if( $request->hasFile('image')){
+        //   $path =  $request->file('image')->store('posts','public');
+        $name = $request->file('image')->getClientOriginalName();
+        $path =  $request->file('image')->storeAs('posts',$name,$disk);
+        }else{
+
+        }
         // if($request->user()->cannot('update',Post::class)){
         //     abort(403);
         // }
@@ -83,23 +91,23 @@ class PostController extends Controller
         //     'content' => 'required',
         //     ]);
 
-        $validator = Validator::make($request->all(), [
-            'title' => 'required|unique:posts|min:20|max:255',
-            'content' => 'required',
-        ],
-        [
-            'required' => 'Thuộc tính :attribute là bắt buộc.',
-            'content.require' => 'Nội dung không được để trống'
-        ]
+        // $validator = Validator::make($request->all(), [
+        //     'title' => 'required|unique:posts|min:20|max:255',
+        //     'content' => 'required',
+        // ],
+        // [
+        //     'required' => 'Thuộc tính :attribute là bắt buộc.',
+        //     'content.require' => 'Nội dung không được để trống'
+        // ]
 
-        );
+        // );
 
-            // dd($validator->fails());
-            if ($validator->fails()) {
-                return redirect('backend/posts/create')
-                ->withErrors($validator)
-                ->withInput();
-                }
+        //     // dd($validator->fails());
+        //     if ($validator->fails()) {
+        //         return redirect('backend/posts/create')
+        //         ->withErrors($validator)
+        //         ->withInput();
+        //         }
 
 
 
@@ -108,6 +116,10 @@ class PostController extends Controller
         // dd($tags);
         $post = new Post();
         $post->title = $data['title'];
+        if(isset($path)){
+            $post->image=$path;
+            $post->disk = $disk;
+        }
         // $post->slug= $data['title'];
         // $post->status=$data['status'];
         $post->user_created_id = 1;
@@ -132,6 +144,9 @@ class PostController extends Controller
         //    'updated_at' => now()
 
         // ]);
+
+
+
         return redirect()->route('backend.posts.index');
     }
 
@@ -218,7 +233,7 @@ class PostController extends Controller
             $post->disk = $disk;
             $post->image = $path;
         }
-            
+
 
         $data = request()->only(['title','content']);
         $tags = $request->get('tags');

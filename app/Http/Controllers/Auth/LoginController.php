@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -16,10 +17,29 @@ class LoginController extends Controller
 
     public function authenticate(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'email' => 'required|email',
+                'password' => 'required',
+            ],
+            [
+
+                'required' => 'Thuộc tính :attribute Không được để trống',
+            ],
+        );
+
+        if ($validator->fails()) {
+            return redirect('login')
+                ->withErrors($validator)
+                ->withInput();
+        }
         $credential = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
+
+        // Chức năng nhớ tài khoản
 
         if($request->get('remember'))
         {
@@ -30,12 +50,13 @@ class LoginController extends Controller
             $remember = false;
         }
 
+        // Kiểm tra thành công thì qua trang home
         if(Auth::attempt($credential, $remember)){
             $request->session()->regenerate();
 
             return redirect()->intended('backend/dashboard');
         }
-
+// Ngược lại quay lại trang login và hiện thông báo
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records',
         ]);
