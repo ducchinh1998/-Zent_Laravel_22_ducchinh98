@@ -47,6 +47,7 @@ class CategoryController extends Controller
         $category=new Category();
         $category->name= $data['name'];
         $category->save();
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.categories.index');
     }
 

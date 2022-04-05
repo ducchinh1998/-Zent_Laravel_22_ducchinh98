@@ -60,6 +60,7 @@ class PostController extends Controller
     {
         $categories=Category::get();
         $tags = Tag::get();
+
         return view('backend.posts.create')->with([
             'categories' => $categories,
             'tags' => $tags
@@ -80,6 +81,7 @@ class PostController extends Controller
         //   $path =  $request->file('image')->store('posts','public');
         $name = $request->file('image')->getClientOriginalName();
         $path =  $request->file('image')->storeAs('posts',$name,$disk);
+
         }else{
 
         }
@@ -146,7 +148,7 @@ class PostController extends Controller
         // ]);
 
 
-
+        $request->session()->flash('success', 'Thêm mới thành công');
         return redirect()->route('backend.posts.index');
     }
 

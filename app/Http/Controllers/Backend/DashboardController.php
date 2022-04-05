@@ -13,7 +13,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $save = Storage::disk('local2')->put('file.txt', 'Contents');
         // dd($save);

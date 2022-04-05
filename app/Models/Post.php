@@ -34,6 +34,7 @@ class Post extends Model
     public function getImageUrlFullAttribute(){
         $url = Storage::disk($this->disk)->url($this->image);
         return $url;
+        // return url(\Illuminate\Support\Facades\Storage::url($this->image));
     }
 
     public function getStatusTextAttribute(){

@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Cookie;
 
 class LoginController extends Controller
 {
@@ -53,7 +54,7 @@ class LoginController extends Controller
         // Kiểm tra thành công thì qua trang home
         if(Auth::attempt($credential, $remember)){
             $request->session()->regenerate();
-
+            Cookie::queue('email', $request->get('email'));
             return redirect()->intended('backend/dashboard');
         }
 // Ngược lại quay lại trang login và hiện thông báo
