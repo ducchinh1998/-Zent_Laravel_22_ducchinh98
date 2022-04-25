@@ -76,11 +76,14 @@ Route::prefix('backend')
 
 //Frontend
 
-Route::prefix('/frontend')
+Route::prefix('')
 ->namespace('Frontend')
 ->group(function(){
-    Route::get('/home','HomeController@index')->name('frontend.home');
+    Route::get('/','HomeController@index')->name('frontend.home');
     Route::get('/posts/index','PostController@index')->name('frontend.posts.index');
+    Route::get('/show/{id}','ProductController@showProduct')->name('frontend.products.show');
+    Route::get('/categoryproduct/{id}','ProductController@categoryproduct')->name('frontend.products.categoryproduct');
+
 });
 
 Route::prefix('/')

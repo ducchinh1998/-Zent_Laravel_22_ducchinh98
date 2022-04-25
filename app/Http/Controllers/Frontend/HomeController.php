@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class HomeController extends Controller
 {
@@ -14,7 +15,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('frontend.home');
+        $products_feature = Product::where('status',Product::STATUS_CONTINUE)->limit('6')->get();
+        $products_recommended = Product::where('status',Product::STATUS_CONTINUE)->limit('3')->get();
+        return view('frontend.home.index')->with([
+            'products_feature' => $products_feature,
+            'products_recommended' => $products_recommended
+
+        ]);
     }
 
     /**
