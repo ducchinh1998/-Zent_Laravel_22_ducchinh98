@@ -185,19 +185,19 @@
                     <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                     <h2>{{ $show_product->name }}</h2>
                     <p>{{ $show_product->category_id }}</p>
-                    <img src= "" />
+                    <img src="{{ $show_product->images[0]->image_url }}" alt="" />
                     <span>
                         <span>{{ number_format($show_product->origin_price) }} đ</span>
                         <label>Quantity:</label>
                         <input type="text" value="3" />
-                        <button type="button" class="btn btn-fefault cart">
+                        <a href="{{ route('frontend.carts.add',['id' => $show_product->id]) }}" class="btn btn-fefault cart">
                             <i class="fa fa-shopping-cart"></i>
-                            Add to cart
-                        </button>
+                            Thêm vào giỏ hàng
+                        </a>
                     </span>
                     <p><b>Availability:</b> In Stock</p>
                     <p><b>Condition: </b>{{ $show_product->status_text }}</p>
-                    <p><b>Brand:</b> E-SHOPPER</p>
+                    <p><b>Brand:</b></p>
                     <a href=""><img src="images/product-details/share.png" class="share img-responsive"  alt="" /></a>
                 </div><!--/product-information-->
             </div>
@@ -221,7 +221,7 @@
                                     <img src="images/home/gallery1.jpg" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
-                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    <a href="{{ route('frontend.carts.add',['id' => $show_product->id]) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                                 </div>
                             </div>
                         </div>
@@ -233,7 +233,7 @@
                                     <img src="images/home/gallery2.jpg" alt="" />
                                     <h2>$56</h2>
                                     <p>Easy Polo Black Edition</p>
-                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</button>
                                 </div>
                             </div>
                         </div>
@@ -399,15 +399,41 @@
             <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="item active">
+                    @foreach ($products_recommended as $product )
+                    <div class="col-sm-4">
+                        <div class="product-image-wrapper">
+                            <div class="single-products">
+                                <div class="productinfo text-center">
+                                    @if (empty($product->images))
+                                    <img src="images/home/recommend1.jpg" alt="" />
+                                    @else
+                                    <img src="{{ $product->images[0]->image_url }}" alt="" />
+                                    @endif
+                                    <h2>{{ number_format($product->sale_price) }} đ</h2>
+                                    <p>{{ $product->name }}</p>
+                                    <a href="{{ route('frontend.carts.add',$product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+                    </div>
+                    <div class="item">
                         @foreach ($products_recommended as $product )
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
+                                        @if (empty($product->images))
                                         <img src="images/home/recommend1.jpg" alt="" />
+                                        @else
+                                        <img src="{{ $product->images[0]->image_url }}" alt="" />
+                                        @endif
                                         <h2>{{ number_format($product->sale_price) }} đ</h2>
                                         <p>{{ $product->name }}</p>
-                                        <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        <a href="{{ route('frontend.carts.add',$product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                     </div>
 
                                 </div>

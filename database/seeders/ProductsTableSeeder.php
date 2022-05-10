@@ -24,6 +24,8 @@ class ProductsTableSeeder extends Seeder
             'sale_price' => '200000',
             'user_id' => 1,
             'category_id' =>1,
+            'brand_id' => 1,
+            'quantity' =>1,
             'updated_at' => Carbon::now('Asia/Ho_Chi_Minh')
         ]);
         }

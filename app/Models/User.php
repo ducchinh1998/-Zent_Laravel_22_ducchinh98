@@ -85,5 +85,14 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function brands(){
+        return $this->hasMany(Brand::class);
+    }
+
+    public function product()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
 

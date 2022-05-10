@@ -18,7 +18,7 @@ class PostController extends Controller
     //
     public function __construct()
     {
-        $this->authorizeResource(Post::class,'post');
+        // $this->authorizeResource(Post::class,'post');
     }
     /**
      * Display a listing of the resource.
@@ -205,10 +205,10 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
 
-        $validated= $request->validate([
-            'name' => 'required|max:255',
+        // $validated= $request->validate([
+        //     'name' => 'required|max:255',
 
-        ]);
+        // ]);
 
 
         // DB::table('posts')->where('id', $id)->update([

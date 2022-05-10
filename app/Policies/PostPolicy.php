@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class PostPolicy
 {
@@ -65,7 +66,7 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id ===$post->user_created_id;
+        return Auth::user()->id ===$post->user_created_id;
 
     }
 

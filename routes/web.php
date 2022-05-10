@@ -72,6 +72,82 @@ Route::prefix('backend')
 
     });
 
+    //categoryproduct
+
+    Route::group([
+        'prefix' => 'categoryproducts',
+     ], function (){
+        Route::get('/list', 'CategoryProductController@index')->name('backend.categoryproducts.index');
+
+        Route::get('/create', 'CategoryProductController@create')->name('backend.categoryproducts.create');
+
+        Route::post('/store','CategoryProductController@store')->name('backend.categoryproducts.store');
+
+        Route::get('/edit/{id}', 'CategoryProductController@edit')->name('backend.categoryproducts.edit');
+
+        Route::post('/update/{id}', 'CategoryProductController@update')->name('backend.categoryproducts.update');
+
+        Route::delete('/destroy/{id}', 'CategoryProductController@destroy')->name('backend.categoryproducts.destroy');
+
+        Route::get('/show/{id}', 'CategoryProductController@show')->name('backend.categoryproducts.show');
+
+        Route::get('/restore/{id}', 'CategoryProductController@restore')->name('backend.categoryproducts.restore');
+
+        Route::get('/delete', 'CategoryProductController@delete')->name('backend.categoryproducts.delete');
+     });
+
+    //Product
+    Route::group([
+        'prefix' => 'products',
+    ],function(){
+        Route::get('/create','ProductController@create')->name('backend.products.create');
+
+        Route::post('/store', 'ProductController@store')->name('backend.products.store');
+
+        Route::get('/list','ProductController@index')->name('backend.products.index');
+
+        Route::get('/edit/{id}','ProductController@edit')->name('backend.products.edit');
+
+        Route::post('/update/{id}', 'ProductController@update')->name('backend.products.update');
+
+        Route::delete('/delete/{product}','ProductController@destroy')->name('backend.products.destroy');
+
+        Route::post('/show','ProductController@show')->name('backend.products.show');
+    });
+
+    //Brand
+    Route::group([
+        'prefix' => 'brands',
+     ], function (){
+
+        Route::get('/create','BrandController@create')->name('backend.brands.create');
+
+        Route::post('/store', 'BrandController@store')->name('backend.brands.store');
+
+        Route::get('/list','BrandController@index')->name('backend.brands.index');
+
+        Route::get('/edit/{id}','BrandController@edit')->name('backend.brands.edit');
+
+        Route::post('/update/{id}', 'BrandController@update')->name('backend.brands.update');
+
+        Route::delete('/delete/{id}','BrandController@destroy')->name('backend.brands.destroy');
+
+
+     });
+
+     //Order
+     Route::group([
+        'prefix' => 'orders',
+     ], function (){
+        Route::get('/list','OrderController@index')->name('backend.orders.index');
+
+        Route::get('/show/{id}','OrderController@show')->name('backend.orders.show');
+
+        Route::post('/update/{id}','OrderController@update')->name('backend.orders.update');
+
+        Route::delete('/destroy/{order}','OrderController@delete')->name('backend.orders.destroy');
+     });
+
 });
 
 //Frontend
@@ -83,6 +159,9 @@ Route::prefix('')
     Route::get('/posts/index','PostController@index')->name('frontend.posts.index');
     Route::get('/show/{id}','ProductController@showProduct')->name('frontend.products.show');
     Route::get('/categoryproduct/{id}','ProductController@categoryproduct')->name('frontend.products.categoryproduct');
+    Route::get('/carts/add/{id}','CartController@add')->name('frontend.carts.add');
+    Route::get('/carts/list','CartController@index')->name('frontend.carts.index');
+    Route::get('/carts/checkout','CartController@checkout')->name('frontend.carts.checkout');
 
 });
 

@@ -520,10 +520,14 @@
                                     <div class="product-image-wrapper">
                                         <div class="single-products">
                                             <div class="productinfo text-center">
+                                                @if (empty($product->images))
                                                 <img src="images/home/recommend1.jpg" alt="" />
+                                                @else
+                                                <img src="{{ $product->images[0]->image_url }}" alt="" />
+                                                @endif
                                                 <h2>{{ number_format($product->sale_price) }} đ</h2>
                                                 <p>{{ $product->name }}</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <a href="{{ route('frontend.carts.add',$product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
 
                                         </div>
@@ -531,6 +535,28 @@
                                 </div>
                             @endforeach
 
+                        </div>
+
+                        <div class="item">
+                            @foreach ($products_recommended as $product )
+                            <div class="col-sm-4">
+                                <div class="product-image-wrapper">
+                                    <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            @if (empty($product->images))
+                                            <img src="images/home/recommend1.jpg" alt="" />
+                                            @else
+                                            <img src="{{ $product->images[0]->image_url }}" alt="" />
+                                            @endif
+                                            <h2>{{ number_format($product->sale_price) }} đ</h2>
+                                            <p>{{ $product->name }}</p>
+                                            <a href="{{ route('frontend.carts.add',$product->id) }}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                         </div>
 
                     </div>

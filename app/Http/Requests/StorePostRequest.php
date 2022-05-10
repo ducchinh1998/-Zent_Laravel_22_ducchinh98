@@ -26,6 +26,7 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|unique:posts|min:20|max:255',
             'content' => 'required',
+            'image' => 'required'
         ];
 
     }
@@ -40,6 +41,7 @@ public function messages()
 return [
 'title.required' => ':attribute bắt buộc phải có',
 'content.required' => ':attribute không được để trống',
+'image.required' => 'Vui lòng chọn :attribute'
 ];
 }
 
@@ -47,7 +49,8 @@ public function attributes()
 {
     return [
         'title' => 'Tiêu đề',
-        'content' => 'Nội dung'
+        'content' => 'Nội dung',
+        'image' => 'ảnh'
     ];
 }
 
